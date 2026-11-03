@@ -1,0 +1,6 @@
+{
+  "name": "BhashaLab - Multilingual Language Lab",
+  "description": "Interactive Language Lab for English, Hindi, and Sanskrit across Classes 1-12 with Reading, Pronunciation, Listening, and Grammar modules for Students and Teachers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

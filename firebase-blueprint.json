@@ -1,0 +1,187 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with role differentiation between students and teachers, and assigned grade class 1-12, login info, and XP",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase Auth User ID"
+        },
+        "email": {
+          "type": "string",
+          "description": "User email address"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Full display name"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["student", "teacher", "admin"],
+          "description": "Role determining access permissions"
+        },
+        "assignedClass": {
+          "type": "number",
+          "description": "Student grade class from 1 to 12"
+        },
+        "passwordHash": {
+          "type": "string",
+          "description": "Cryptographic SHA-256 hash of password"
+        },
+        "totalXp": {
+          "type": "number",
+          "description": "Total XP earned across exercises"
+        },
+        "streakDays": {
+          "type": "number",
+          "description": "Consecutive days study streak"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last updated timestamp"
+        }
+      },
+      "required": ["uid", "email", "displayName", "role"]
+    },
+    "LabContent": {
+      "title": "LabContent",
+      "description": "Language lab learning content for English, Hindi, and Sanskrit across classes 1-12",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for learning item"
+        },
+        "language": {
+          "type": "string",
+          "enum": ["english", "hindi", "sanskrit"],
+          "description": "Target learning language"
+        },
+        "section": {
+          "type": "string",
+          "enum": ["reading", "pronunciation", "listening", "grammar"],
+          "description": "Language skill section"
+        },
+        "classGrade": {
+          "type": "number",
+          "description": "Applicable grade from 1 to 12"
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the lesson or exercise"
+        },
+        "description": {
+          "type": "string",
+          "description": "Short summary of the module"
+        },
+        "difficulty": {
+          "type": "string",
+          "enum": ["beginner", "intermediate", "advanced"],
+          "description": "Difficulty level"
+        },
+        "contentBody": {
+          "type": "string",
+          "description": "Main text, passage, or dialogue"
+        },
+        "translation": {
+          "type": "string",
+          "description": "Bilingual translation or meaning"
+        },
+        "audioText": {
+          "type": "string",
+          "description": "Text to synthesize for listening and pronunciation playback"
+        },
+        "phoneticGuide": {
+          "type": "string",
+          "description": "Phonetic breakdown or pronunciation guide"
+        },
+        "grammarNotes": {
+          "type": "string",
+          "description": "Grammar rules and usage explanations"
+        },
+        "authorId": {
+          "type": "string",
+          "description": "UID of authoring teacher"
+        },
+        "authorName": {
+          "type": "string",
+          "description": "Name of authoring teacher"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["published", "draft"],
+          "description": "Publishing state"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last modified timestamp"
+        }
+      },
+      "required": ["id", "language", "section", "classGrade", "title", "contentBody", "authorId", "status"]
+    },
+    "UserProgress": {
+      "title": "UserProgress",
+      "description": "Student progress, exercise scores, and speech accuracy logs",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Progress record ID"
+        },
+        "userId": {
+          "type": "string",
+          "description": "User ID of the student"
+        },
+        "contentId": {
+          "type": "string",
+          "description": "Content ID of the completed item"
+        },
+        "language": {
+          "type": "string",
+          "description": "Language studied"
+        },
+        "section": {
+          "type": "string",
+          "description": "Section practiced"
+        },
+        "score": {
+          "type": "number",
+          "description": "Score achieved (percentage or points)"
+        },
+        "completed": {
+          "type": "boolean",
+          "description": "Completion flag"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp of practice"
+        }
+      },
+      "required": ["id", "userId", "contentId", "completed"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile and credentials records indexed by Firebase Auth UID"
+    },
+    "/content/{contentId}": {
+      "schema": "LabContent",
+      "description": "Curriculum items for Reading, Pronunciation, Listening, and Grammar across Classes 1-12"
+    },
+    "/userProgress/{progressId}": {
+      "schema": "UserProgress",
+      "description": "Student score and activity completion logs"
+    }
+  }
+}
